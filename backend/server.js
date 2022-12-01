@@ -32,9 +32,12 @@ app.get('/api/config/paypal', (req, res) => {
   res.send(config.PAYPAL_CLIENT_ID);
 });
 
-app.use(express.static(path.join(__dirname, '/../frontend/build')));
+//app.use(express.static(path.join(__dirname, '/../frontend/build')));
 
-app.get('*', (req, res) => res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`)));
+app.use(express.static(path.join(__dirname, 'https://ot-amazona.onrender.com/frontend/build')));
+
+//app.get('*', (req, res) => res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`)));
+app.get('*', (req, res) => res.sendFile(path.join(`https://ot-amazona.onrender.com/frontend/build/index.html`)));
 
 app.listen(config.PORT, () => {console.log('Server started at http://localhost:5000');});
 
