@@ -5,6 +5,7 @@ import data from './data';
 import config from './config';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cors from "cors";
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
 import orderRoute from './routes/orderRoute';
@@ -24,6 +25,8 @@ mongoose
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(cors());
 //app.use('/api/uploads', uploadRoute);
 app.use("/api/users", userRoute);
 app.use('/api/products', productRoute);
@@ -32,9 +35,12 @@ app.get('/api/config/paypal', (req, res) => {
   res.send(config.PAYPAL_CLIENT_ID);
 });
 
-app.use(express.static(path.join(__dirname, '/../frontend/build')));
+//app.use(express.static(path.join(__dirname, '/../frontend/build')));
 
-app.get('*', (req, res) => res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`)));
+app.use(express.static(path.join(__dirname, 'https://ot-amazona.onrender.com/frontend/build')));
+
+//app.get('*', (req, res) => res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`)));
+app.get('*', (req, res) => res.sendFile(path.join(`https://ot-amazona.onrender.com/frontend/build/index.html`)));
 
 app.listen(config.PORT, () => {console.log('Server started at http://localhost:5000');});
 
